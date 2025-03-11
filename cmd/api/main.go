@@ -7,11 +7,13 @@ import (
 	"log"
 )
 
+const version = "0.0.1"
+
 func main() {
 	cfg := config{
 		addr: env.GetString("ADDR", ":8000"),
 		db: dbConfig{
-			addr:         env.GetString("DB_ADDR", "mysql://admin:admin@localhost/ferp?sslmode=disable"),
+			addr:         env.GetString("DB_ADDR", "admin:admin@tcp(localhost:3306)/ferp?parseTime=true"),
 			maxOpenConns: env.GetInt("DB_MAX_OPEN_CONNS", 30),
 			maxIdleConns: env.GetInt("DB_MAX_IDLE_CONNS", 30),
 			maxIdleTime:  env.GetString("DB_MAX_IDLE_TIME", "15m"),
