@@ -1,0 +1,3 @@
+bin/main,
+bin/build-errors.log
+go.sum
