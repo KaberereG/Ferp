@@ -1,24 +1,43 @@
+# version: '3.8'
+
+# services:
+#   mysql:
+#     image: mysql:8.0  # Use the version you need
+#     container_name: mysql_container
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: admin # Change this to a secure password
+#       MYSQL_DATABASE: ferp_go
+#       MYSQL_USER: admin
+#       MYSQL_PASSWORD: admin  # Change this to a secure password
+#     ports:
+#       - "3307:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+#     networks:
+#       - my_network
+
+# volumes:
+#   mysql_data:
+
+# networks:
+#   my_network:
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0  # Use the version you need
-    container_name: mysql_container
-    restart: always
+
+  db:
+    image: postgres:16.3
+    container_name: ferpgo
     environment:
-      MYSQL_ROOT_PASSWORD: admin # Change this to a secure password
-      MYSQL_DATABASE: ferp
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin  # Change this to a secure password
-    ports:
-      - "3306:3306"
+      POSTGRES_DB: ferpgo
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
     volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - my_network
-
+      - db-data:/var/lib/postgresql/data
+    
+    ports:
+      - "5433:5432"
 volumes:
-  mysql_data:
-
-networks:
-  my_network:
+  db-data:

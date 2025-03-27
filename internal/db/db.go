@@ -4,12 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"time"
-
-	_ "github.com/go-sql-driver/mysql"
+	// _ "github.com/go-sql-driver/mysql"
+	// _ "github.com/golang-migrate/migrate/v4/database/mysql"
+	// _ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func New(addr string, maxOpenConns, maxIdleConns int, maxIdleTime string) (*sql.DB, error) {
-	db, err := sql.Open("mysql", addr)
+	db, err := sql.Open("postgres", addr)
 	if err != nil {
 		return nil, err
 	}

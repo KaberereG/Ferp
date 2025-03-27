@@ -5,6 +5,8 @@ import (
 	"ferp-go/internal/env"
 	"ferp-go/internal/store"
 	"log"
+
+	_ "github.com/lib/pq"
 )
 
 const version = "0.0.1"
@@ -13,7 +15,8 @@ func main() {
 	cfg := config{
 		addr: env.GetString("ADDR", ":8000"),
 		db: dbConfig{
-			addr:         env.GetString("DB_ADDR", "admin:admin@tcp(localhost:3306)/ferp?parseTime=true"),
+			// addr:         env.GetString("DB_ADDR", "admin:admin@tcp(localhost:3307)/ferp?parseTime=true"),
+			addr:         env.GetString("DB_ADDR", "postgres://admin:admin@localhost:5433/ferpgo?sslmode=disable"),
 			maxOpenConns: env.GetInt("DB_MAX_OPEN_CONNS", 30),
 			maxIdleConns: env.GetInt("DB_MAX_IDLE_CONNS", 30),
 			maxIdleTime:  env.GetString("DB_MAX_IDLE_TIME", "15m"),

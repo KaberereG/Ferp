@@ -5,8 +5,6 @@ import (
 	"database/sql"
 	"errors"
 	"time"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
