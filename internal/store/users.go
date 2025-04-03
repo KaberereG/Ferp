@@ -6,11 +6,12 @@ import (
 )
 
 type User struct {
-	ID        int64  `json:"id"`
-	Username  string `json:"username"`
-	Email     string `json:"email"`
-	Password  int64  `json:"-"` //We will not return password
-	CreatedAt string `json:"created_at"`
+	ID        int64   `json:"id"`
+	Firstname string  `json:"firstname"`
+	Lastname  string  `json:"lastname"`
+	Email     string  `json:"email"`
+	Password  *string `json:"password"` //We will not return password
+	CreatedAt string  `json:"created_at"`
 }
 
 type UserStore struct {
@@ -19,7 +20,7 @@ type UserStore struct {
 
 func (s *UserStore) Create(ctx context.Context, user *User) error {
 	query := `
-	INSERT INTO users (username, password, email)
+	INSERT INTO users (firstname,lastname, password, email)
 	VALUES($1,$2,$3) RETURNING id, created_at`
 
 	ctx, cancel := context.WithTimeout(ctx, QueryTimeoutDuration)
@@ -28,7 +29,8 @@ func (s *UserStore) Create(ctx context.Context, user *User) error {
 	err := s.db.QueryRowContext(
 		ctx,
 		query,
-		user.Username,
+		user.Firstname,
+		user.Lastname,
 		user.Password,
 		user.Email,
 	).Scan(
@@ -44,7 +46,7 @@ func (s *UserStore) Create(ctx context.Context, user *User) error {
 
 func (s *UserStore) GetByID(ctx context.Context, userID int64) (*User, error) {
 	query := `
-	SELECT id, username, email, password, created_at
+	SELECT id, firstname,lastname, email, password, created_at
 	FROM users
 	WHERE id = $1
 	`
@@ -59,7 +61,8 @@ func (s *UserStore) GetByID(ctx context.Context, userID int64) (*User, error) {
 		user.ID,
 	).Scan(
 		&user.ID,
-		&user.Username,
+		&user.Firstname,
+		&user.Lastname,
 		&user.Email,
 		&user.Password,
 		&user.CreatedAt,
