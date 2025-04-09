@@ -1,8 +1,6 @@
-package main
+package utils
 
 import (
-	"fmt"
-
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,13 +15,13 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func main() {
-	password := "secret"
-	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
+// func main() {
+// 	password := "secret"
+// 	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
 
-	fmt.Println("Password:", password)
-	fmt.Println("Hash:    ", hash)
+// 	fmt.Println("Password:", password)
+// 	fmt.Println("Hash:    ", hash)
 
-	match := CheckPasswordHash(password, hash)
-	fmt.Println("Match:   ", match)
-}
+// 	match := CheckPasswordHash(password, hash)
+// 	fmt.Println("Match:   ", match)
+// }

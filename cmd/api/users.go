@@ -3,6 +3,7 @@ package main
 import (
 	"strconv"
 
+	"ferp-go/cmd/api/utils"
 	"ferp-go/internal/store"
 	"net/http"
 
@@ -58,11 +59,16 @@ func (app *application) createUserHandler(w http.ResponseWriter, r *http.Request
 		return
 	}
 
+	hashpassword, err := utils.HashPassword(payload.Password)
+	if err != nil {
+		app.internalServerError(w, r, err)
+		return
+	}
 	user := &store.User{
 		Firstname: payload.Firstname,
 		Lastname:  payload.Lastname,
 		Email:     payload.Email,
-		Password:  &payload.Password,
+		Password:  &hashpassword,
 	}
 	ctx := r.Context()
 
